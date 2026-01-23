@@ -17,7 +17,7 @@ PolicyBucket:
   - MoRef:access.Policy[UCSX-LAB-RESOURCES\IMCAccess]
   - MoRef:power.Policy[UCSX-LAB-RESOURCES\ChassisPower]
   - MoRef:firmware.Policy[UCSX-LAB-RESOURCES\Firmware]
-  - MoRef:thermal.Policy[UCSX-LAB-RESOURCES\Chassis-Thermal]
+  # - MoRef:thermal.Policy[UCSX-LAB-RESOURCES\Chassis-Thermal]
   - MoRef:vmedia.Policy[UCSX-LAB-RESOURCES\vMedia-Policy]
   - MoRef:iam.EndPointUserPolicy[UCSX-LAB-RESOURCES\LocalAdmin]
   - MoRef:snmp.Policy[UCSX-LAB-RESOURCES\SNMP]

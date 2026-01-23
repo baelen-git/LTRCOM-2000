@@ -40,7 +40,7 @@ Click on **Add OS Image Link**
 
 Select the **X-Series-Configuration Organization**  
 Select the **HTTP/S** option  
-Enter this File Location: https://172.20.70.90/images/VMware-ESXi-8.0.U1a-21813344-Custom-Cisco-4.3.1-a.iso  
+Enter this File Location: https://10.5.5.8/images/VMware-ESXi-8.0.U3-24022510-Custom-Cisco-4.3.4-a.iso
 
 ![Repository 4](./Repository4.png "Repository 4")
 
@@ -49,7 +49,7 @@ Enter the following details
 
 Name: **SRVxx-ESXi-8.0**  
 Vendor: **VMware**  
-Version: **ESXi 8.0 u1**  
+Version: **ESXi 8.0 u3**  
 
 ![Repository 5](./Repository5.png "Repository 5")
 
@@ -71,14 +71,14 @@ Click on **Add SCU Link**
 
 Select the **X-Series-Configuration Organization**  
 Select the **HTTP/S** option  
-Enter this File Location: **https://172.20.70.90/images/ucs-scu-6.3.2c.iso**  
+Enter this File Location: **https://10.5.5.8/images/ucs-scu-7.1.5.250100.iso**  
 
 ![Repository 8](./Repository8.png "Repository 8")
 
 Click **Next**
 
-Name: **SRVxx-SCU-6.3.2c**  
-Version: **6.3.2c** (this is mandatory but not used yet, so what you enter doesn’t matter)  
+Name: **SRVxx-SCU-7.1.5**  
+Version: **7.1.5** (this is mandatory but not used yet, so what you enter doesn’t matter)  
 Supported Models: **All** (this is mandatory but not used yet, so what you enter doesn’t matter)  
 
 ![Repository 9](./Repository9.png "Repository 9")

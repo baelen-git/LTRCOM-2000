@@ -133,4 +133,4 @@ nav:
 
 plugins:
   - search
-  - print-site
+  # - print-site

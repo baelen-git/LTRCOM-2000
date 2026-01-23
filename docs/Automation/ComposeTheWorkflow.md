@@ -189,12 +189,12 @@ In our case, we will leave the **Allow User Override** option **unchecked**.
 
 Let's set default values for the following sub-inputs, it works just like the **Static Value** input type mapping you already had the chance to work with:
 
-* **OS Image**: ESXi 8.0u1a
+* **OS Image**: VMware-ESXi-8.0.U3
 * **Vendor**: VMware
 * **Installation Mode**: Cisco
 * **Vendor**: VMware
 * **NetworkDevice** (the management interface which will receive the mgt IP address): vmnic0
-* **SCU Image**: ucs-scu-6.3.2c.iso
+* **SCU Image**: ucs-scu-7.1.5.250100.iso
 
 Click **Save** when done, then **Save** again in the top right corner to save and validate the workflow.
 In the **Preview** section, you can now see that we have much less inputs!

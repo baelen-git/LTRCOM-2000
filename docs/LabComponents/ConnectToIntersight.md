@@ -17,11 +17,11 @@ Servers can have different CPUs, memory and Storage configuration. Even though t
 
 In this lab activity, you will use the provided credentials to log into the Intersight account you’ll be using for the lab.
 
-In the web browser, navigate to: [Intersight](https://intersight.com). You will see the following screen:
+In the web browser, navigate to: [Intersight](https://ciscolive.intersight.com). You will see the following screen:
 
 ![Intersight Login](./IntersightLogin.png "Intersight Login")
 
-On your **“User Details Worksheet”** find your unique username which is designated as **[[Username]]** and use the email **[[Username]]@intersighttme.com** to login to Intersight.
+On your **“User Details Worksheet”** find your unique username which is designated as **[[Username]]** and use the email **[[Username]]@intersighttme.de** to login to Intersight.
 
 It is possible that you see the following message, this is normal as we are using unsigned certificates as part of the lab environment.
 
@@ -31,11 +31,9 @@ Click on **Advanced.**
 
 ![Certificate Proceed](./CertificateProceed.png "Certificate Proceed")
 
-Then click **“Proceed to sts.intersighttme.com (unsafe)”.**
+Then click **“Proceed to sts.intersighttme.de (unsafe)”.**
 
-On the “sts.intersighttme.com” login screen, enter **[[Username]]@intersighttme.com** as the email address again and enter the **[[Password]]** from the **User Details Worksheet.**
-
-The following Table has the information about the login for Intersight.
+On the “sts.intersighttme.de login screen, enter **[[Username]]** and the **[[Password]]** from the **User Details Worksheet.**
 
 **NOTE:**
 DO NOT USE THIS FOR THE VPN. Use your User Details Worksheet.
@@ -43,6 +41,7 @@ DO NOT USE THIS FOR THE VPN. Use your User Details Worksheet.
 ![Intersight Username](./IntersightUsername.png "Intersight Username")
 
 If you see this error message below, please try to login again.
+If that doesn't work, go to https://sts.intersighttme.de/adfs/ls/idpinitiatedsignon.aspx and delete the cookie for this webpage.
 
 ![Intersight Error Message](./IntersightErrorMessage.png "Intersight Error Message")
 

@@ -8,4 +8,4 @@ The goal of this lab section is to create an automation that addresses the follo
 1. Create a new server profile from a server profile template
 2. Map a server to this newly created server profile
 3. Deploy the server profile
-4. Install an Operating System (ESXi 8.0u1) in a unattended fashion
+4. Install an Operating System (ESXi 8.0u3) in a unattended fashion
