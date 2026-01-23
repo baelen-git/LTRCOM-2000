@@ -1,0 +1,56 @@
+---
+ClassId: ntp.Policy
+Name: NTP
+Organization: UCSX-LAB-RESOURCES
+#settings
+Enabled: true
+NtpServers:
+- 10.5.4.9
+Timezone: America/New_York
+---
+ClassId: networkconfig.Policy
+Name: DNS
+Organization: UCSX-LAB-RESOURCES
+#settings
+PreferredIpv4dnsServer: 10.5.4.10 
+AlternateIpv4dnsServer: 10.5.4.11
+---
+ClassId: fabric.SwitchControlPolicy
+Name: SwitchControl
+Organization: UCSX-LAB-RESOURCES
+#settings
+EthernetSwitchingMode: end-host
+FabricPcVhbaReset: Enabled
+FcSwitchingMode: end-host
+MacAgingSettings:
+  ClassId: fabric.MacAgingSettings
+  MacAgingOption: Default
+  MacAgingTime: 14500
+ReservedVlanStartId: 3915
+UdldSettings:
+  ClassId: fabric.UdldGlobalSettings
+  MessageInterval: 15
+  RecoveryAction: none
+VlanPortOptimizationEnabled: false
+---
+ClassId: snmp.Policy
+Name: SNMP
+Organization: UCSX-LAB-RESOURCES
+#settings
+CommunityAccess: Disabled
+AccessCommunityString: ""
+Enabled: true
+EngineId: ""
+SnmpPort: 161
+SnmpTraps: []
+SnmpUsers: []
+SysContact: ""
+SysLocation: ""
+TrapCommunity: ""
+V2Enabled: true
+V3Enabled: true
+---
+ClassId: fabric.SystemQosPolicy
+Name: Domain-QOS-LAB
+Organization: UCSX-LAB-RESOURCES
+#settings

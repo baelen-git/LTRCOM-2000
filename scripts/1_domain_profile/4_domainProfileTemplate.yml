@@ -1,0 +1,27 @@
+ClassId: fabric.SwitchClusterProfileTemplate
+Name: Domain-Template
+Organization: UCSX-LAB-RESOURCES
+---
+ClassId: fabric.SwitchProfileTemplate
+Name: Domain-Template-A
+SwitchClusterProfileTemplate: MoRef[UCSX-LAB-RESOURCES\Domain-Template]
+PolicyBucket:
+  - MoRef:fabric.EthNetworkPolicy[UCSX-LAB-RESOURCES\VLANS]
+  - MoRef:fabric.PortPolicy[UCSX-LAB-RESOURCES\Port-Policy]
+  - MoRef:fabric.SystemQosPolicy[UCSX-LAB-RESOURCES\Domain-QOS-LAB]
+  - MoRef:networkconfig.Policy[UCSX-LAB-RESOURCES\DNS]
+  - MoRef:ntp.Policy[UCSX-LAB-RESOURCES\NTP]
+  - MoRef:fabric.SwitchControlPolicy[UCSX-LAB-RESOURCES\SwitchControl]
+  - MoRef:snmp.Policy[UCSX-LAB-RESOURCES\SNMP]
+---
+ClassId: fabric.SwitchProfileTemplate
+Name: Domain-Template-B
+SwitchClusterProfileTemplate: MoRef[UCSX-LAB-RESOURCES\Domain-Template]
+PolicyBucket:
+  - MoRef:fabric.EthNetworkPolicy[UCSX-LAB-RESOURCES\VLANS]
+  - MoRef:fabric.PortPolicy[UCSX-LAB-RESOURCES\Port-Policy]
+  - MoRef:fabric.SystemQosPolicy[UCSX-LAB-RESOURCES\Domain-QOS-LAB]
+  - MoRef:networkconfig.Policy[UCSX-LAB-RESOURCES\DNS]
+  - MoRef:ntp.Policy[UCSX-LAB-RESOURCES\NTP]
+  - MoRef:fabric.SwitchControlPolicy[UCSX-LAB-RESOURCES\SwitchControl]
+  - MoRef:snmp.Policy[UCSX-LAB-RESOURCES\SNMP]

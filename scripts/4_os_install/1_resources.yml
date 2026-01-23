@@ -1,0 +1,46 @@
+ClassId: softwarerepository.OperatingSystemFile
+Name: rhel-10
+Catalog: MoRef[UCSX-LAB-RESOURCES\user-catalog]
+Source:
+  # ClassId: softwarerepository.HttpServer
+  # IsPasswordSet: false
+  LocationLink: https://10.5.5.8/images/rhel-10.0-x86_64-dvd.iso
+  ObjectType: softwarerepository.HttpServer
+  # Username: ""
+Vendor: "Red Hat"
+Version: "Red Hat Enterprise Linux 10.0"
+---
+ClassId: firmware.ServerConfigurationUtilityDistributable
+Name: ucs-scu-7.1.5.250100.iso
+Catalog: MoRef[UCSX-LAB-RESOURCES\user-catalog]
+Source:
+  LocationLink: https://10.5.5.8/images/ucs-scu-7.1.5.250100.iso
+  ObjectType: softwarerepository.HttpServer
+SupportedModels:
+- "X210C-M6"
+Vendor: Cisco
+Version: 7.1.5
+
+# ---
+# Not able to do this through the API yet because the catalog has a random name
+
+# ClassId: os.ConfigurationFile
+# Name: rhel9-root-login
+# Catalog: MoRef[UCSX-LAB-RESOURCES\.] #not able to do this because the catalog does not have a name
+# Distributions: MoRef:hcl.Operatingsystem[$filter:Version eq 'Red Hat Enterprise Linux 9.3']
+# FileContent: "#version=DEVEL\n# System authorization information\nauth --enableshadow
+#   --passalgo=sha512\n\n# Use CDROM installation media\ncdrom\n\n# Use graphical install\ngraphical\n\n#
+#   Run the Setup Agent on first boot\nfirstboot --enable\n\n# Keyboard layouts\nkeyboard
+#   --vckeymap=us --xlayouts='us'\n\n# System language\nlang en_US.UTF-8\n\nDISKIDPLACEHOLDER\n\n#Changes
+#   are required in the partition (part) directives that follow.\nautopart --type=lvm\n\n#Clear
+#   the Master Boot Record\nzerombr\n\n# Network information\nnetwork --bootproto=dhcp
+#   --device=link \nnetwork --hostname={{ .Hostname }}\n\n# Root password\nrootpw
+#   UCSX@Cisco123 --allow-ssh\nsshkey --username=root
+#   \"ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1MjEAAACFBABwPL2u91ZjZihpkN9OLZn5LvThV8D9bTLZ1YFbQZcq3Mszpp1Q87BS0d6mvzmvvrEQ2QzTaEeFWZgQfcU/HQSiYwBdAph6Ch+yj4xD9nU7whldIA+STeTlKpUIuR1SXcPgo5pxO2X4+0s1fgQcRSnwUVt7huBmQmNAArMu8xbjRxC8SQ==
+#   baelen@BAELEN-M-J1FT\"\n\n# System services\nservices --enabled=\"chronyd\"\n\n#
+#   System timezone\ntimezone America/New_York --isUtc\n\n%packages\n@^minimal-environment\n@development\n@rpm-development-tools\n@system-tools\n%end\n\n%addon
+#   com_redhat_kdump --disable --reserve-mb='auto'\n\n%end\n\n%anaconda\npwpolicy root
+#   --minlen=6 --minquality=1 --notstrict --nochanges --notempty\npwpolicy user --minlen=6
+#   --minquality=1 --notstrict --nochanges --emptyok\npwpolicy luks --minlen=6 --minquality=1
+#   --notstrict --nochanges --notempty\n%end\n\n%post --nochroot --log=/root/ks-post.log\nOS_INSTALL_COMPLETED_STATUS_PLACEHOLDER\n%end\n\nreboot\n"
+# Internal: false

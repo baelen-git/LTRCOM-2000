@@ -1,0 +1,155 @@
+ClassId: fabric.PortPolicy
+Name: Port-Policy
+Organization: UCSX-LAB-RESOURCES
+#settings
+DeviceModel: UCS-FI-6454
+# ---
+# ClassId: fabric.FlowControlPolicy
+# Name: IMM-FlowControl
+# Organization: UCSX-LAB-RESOURCES
+# #settings
+# PriorityFlowControlMode: auto
+# ReceiveDirection: Disabled
+# SendDirection: Disabled
+# ---
+# ClassId: fabric.LinkControlPolicy
+# Name: IMM-LinkControl
+# Organization: UCSX-LAB-RESOURCES
+# #settings
+# UdldSettings:
+#   ClassId: fabric.UdldSettings
+#   AdminState: Enabled
+#   Mode: normal
+# ---
+# ClassId: fabric.LinkAggregationPolicy
+# Name: IMM-LinkAggr
+# Organization: UCSX-LAB-RESOURCES
+# #settings
+# LacpRate: normal
+# SuspendIndividual: false
+---
+# Only uncomment when you need Fibre Channel Ports
+# Manually delete the PortMode resource based on moid when you want to reverse back to Ethernet
+ClassId: fabric.PortMode
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+PortIdStart: 1
+PortIdEnd: 8
+SlotId: 1
+# ---
+# Only uncomment when you need Breakout Ports
+# Manually delete the PortMode resource based on moid when you want to reverse back.
+
+# ClassId: fabric.PortMode
+# #settings
+# PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+# CustomMode: BreakoutEthernet25G
+# PortIdStart: 49
+# PortIdEnd: 50
+# SlotId: 1
+---
+ClassId: fabric.UplinkPcRole
+AdminSpeed: Auto
+EthNetworkGroupPolicy: []
+# FlowControlPolicy: MoRef[UCSX-LAB-RESOURCES\IMM-FlowControl]
+# LinkAggregationPolicy: MoRef[UCSX-LAB-RESOURCES\IMM-LinkAggr]
+# LinkControlPolicy: MoRef[UCSX-LAB-RESOURCES\IMM-LinkControl]
+PcId: 100
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+Ports:
+- AggregatePortId: 0
+  ClassId: fabric.PortIdentifier
+  PortId: 53
+  SlotId: 1
+- AggregatePortId: 0
+  ClassId: fabric.PortIdentifier
+  PortId: 54
+  SlotId: 1
+# ---
+# USE ONLY WHEN DOING UPLINKS WITHOUT PORTCHANNELS - NOT BEST PRACTISE
+# ClassId: fabric.UplinkRole
+# PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+# #settings
+# SlotId: 1
+# PortId: 53
+# #EthNetworkGroupPolicy: [] #only needed when doing disjoint layer 2
+# FlowControlPolicy: MoRef[UCSX-LAB-RESOURCES\IMM-FlowControl]
+# LinkControlPolicy: MoRef[UCSX-LAB-RESOURCES\IMM-LinkControl]
+# Fec: Auto
+# AdminSpeed: Auto
+# ---
+# USE ONLY WHEN DOING UPLINKS WITHOUT PORTCHANNELS - NOT BEST PRACTISE
+# ClassId: fabric.UplinkRole
+# #settings
+# PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+# SlotId: 1
+# PortId: 54
+# #EthNetworkGroupPolicy: [] #only needed when doing disjoint layer 2
+# FlowControlPolicy: MoRef[UCSX-LAB-RESOURCES\IMM-FlowControl]
+# LinkControlPolicy: MoRef[UCSX-LAB-RESOURCES\IMM-LinkControl]
+# Fec: Auto
+# AdminSpeed: Auto
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 17
+SlotId: 1
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 18
+SlotId: 1
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 19
+SlotId: 1
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 20
+SlotId: 1
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 21
+SlotId: 1
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 22
+SlotId: 1
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 23
+SlotId: 1
+---
+ClassId: fabric.ServerRole
+#settings
+PortPolicy: MoRef[UCSX-LAB-RESOURCES\Port-Policy]
+AutoNegotiationDisabled: false
+Fec: Auto
+PortId: 24
+SlotId: 1

@@ -1,0 +1,97 @@
+---
+- name: Configure RHC and Install OS Discovery Tool
+  hosts: rhel_servers
+  strategy: free
+  become: true # This ensures the tasks run with root privileges
+
+  tasks:
+    - name: Check RHC registration status
+      ansible.builtin.command:
+        cmd: "rhc status -f json"
+      register: rhc_status_result
+      failed_when: false # Prevent task from failing if system is not registered
+      changed_when: false # This task is just for status checking
+
+    - name: Execute rhc connect command if system is not registered
+      ansible.builtin.command:
+        cmd: "rhc connect --activation-key activation-key-2025-09-05-08-12-41 --organization 13732302"
+      register: rhc_connect_output
+      changed_when: rhc_connect_output.rc != 0 # Consider this task as changed if it fails
+      when: "'rhsm_connected\": true' not in rhc_status_result.stdout" # Only run if 'System is registered' is not found in status output
+   
+    - name: Run full system update
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+    # - name: Install enic driver
+    #   ansible.builtin.dnf:
+    #     name: "http://172.20.70.90/images/drivers/Network/Cisco/VIC/RHEL/RHEL9.5/kmod-enic-4.8.0.0-1128.4.rhel9u5_5.14.0_503.11.1.x86_64.rpm"
+    #     sslverify: false
+    #     state: present
+    #     disable_gpg_check: true
+    #   register: dnf_install_output
+
+    # - name: Install fnic driver
+    #   ansible.builtin.dnf:
+    #     name: "http://172.20.70.90/images/drivers/Storage/Cisco/VIC/RHEL/RHEL9.5/kmod-fnic-2.0.0.100-313.0.rhel9u5.x86_64.rpm"
+    #     state: present
+    #     disable_gpg_check: true
+    #     sslverify: false
+    #   register: dnf_install_output
+
+    - name: Install os-discovery-tool
+      ansible.builtin.dnf:
+        name: "https://github.com/cisco-intersight/os-discovery-tool-linux/releases/download/1.0.0/os-discovery-tool-1.0.0-1.el9.x86_64.rpm"
+        state: present
+        disable_gpg_check: yes
+      register: dnf_install_output
+
+    - name: trigger os discovery tool if RPM package installation was skipped
+      ansible.builtin.shell: /opt/os-discovery-tool/gather_inventory_from_host.sh
+      when: not dnf_install_output.changed
+      changed_when: false
+
+    - name: install iperf3
+      ansible.builtin.dnf:
+        name: "iperf3"
+        state: present
+      register: dnf_install_output
+
+    - name: Ensure firewalld is stopped and disabled
+      ansible.builtin.service:
+        name: firewalld
+        state: stopped
+        enabled: false
+
+    - name: Set SELinux to permissive mode temporarily (runtime)
+      ansible.builtin.command: setenforce 0
+      failed_when: false # Prevent failure if setenforce is already 0 or if SELinux is already disabled (and setenforce can't operate)
+      changed_when: false # Set to false as this command doesn't change the persistent config
+
+    - name: start 32 iperf3 servers
+      ansible.builtin.shell: for i in {5201..5232}; do iperf3 -s -D -p $i -4; done
+      changed_when: false
+      tags:
+        - start_iperf
+        - never
+
+    - name: add iperf to crontab
+      ansible.builtin.shell: for x in {01..32}; do echo "30 * * * * root iperf3 -c RHEL-$x -p $(( {{ ansible_play_hosts.index(inventory_hostname) + 1 }} + 5200 )) -bidir -t 3599 >/dev/null 2>&1" >> /etc/crontab ; done
+      changed_when: false
+      tags:
+        - start_iperf
+        - never
+
+    - name: remove iperf from crontab
+      ansible.builtin.shell: cat /etc/crontab  | awk '!/iperf3/'  > /etc/crontab.new; mv -f /etc/crontab.new /etc/crontab
+      tags:
+        - cleanup_iperf
+        - never
+
+    - name: killall iperf3 processes
+      ansible.builtin.shell: killall iperf3
+      tags:
+        - cleanup_iperf
+        - never

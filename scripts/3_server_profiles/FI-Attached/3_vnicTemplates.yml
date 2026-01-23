@@ -1,0 +1,159 @@
+ClassId: vnic.VnicTemplate
+Name: vNIC-Template-A
+Organization: UCSX-LAB-RESOURCES
+MacPool: MoRef[UCSX-LAB-RESOURCES\MAC-Pool]
+EthAdapterPolicy: MoRef[UCSX-LAB-RESOURCES\EthAdapt]
+EthQosPolicy: MoRef[UCSX-LAB-RESOURCES\EthQoS]
+FabricEthNetworkControlPolicy: MoRef[UCSX-LAB-RESOURCES\EthNetwrkCtrl]
+FabricEthNetworkGroupPolicy: 
+  - MoRef[UCSX-LAB-RESOURCES\EthNetworkGrp]
+EnableOverride: false
+FailoverEnabled: false
+Cdn:
+  ClassId: vnic.Cdn
+  ObjectType: vnic.Cdn
+  Source: vnic
+SwitchId: A
+---
+ClassId: vnic.VnicTemplate
+Name: vNIC-Template-B
+Organization: UCSX-LAB-RESOURCES
+MacPool: MoRef[UCSX-LAB-RESOURCES\MAC-Pool]
+EthAdapterPolicy: MoRef[UCSX-LAB-RESOURCES\EthAdapt]
+EthQosPolicy: MoRef[UCSX-LAB-RESOURCES\EthQoS]
+FabricEthNetworkControlPolicy: MoRef[UCSX-LAB-RESOURCES\EthNetwrkCtrl]
+FabricEthNetworkGroupPolicy: 
+  - MoRef[UCSX-LAB-RESOURCES\EthNetworkGrp]
+EnableOverride: false
+FailoverEnabled: false
+Cdn:
+  # ClassId: vnic.Cdn
+  # ObjectType: vnic.Cdn
+  Source: vnic
+SwitchId: B
+---
+ClassId: fabric.EthNetworkGroupPolicy
+Name: EthNetworkGrp
+Organization: UCSX-LAB-RESOURCES
+VlanSettings:
+  ClassId: fabric.VlanSettings
+  AllowedVlans: "70"
+  QinqEnabled: false
+  NativeVlan: 70
+---
+ClassId: fabric.EthNetworkControlPolicy
+Name: EthNetwrkCtrl
+Organization: UCSX-LAB-RESOURCES 
+#settings
+CdpEnabled: true
+ForgeMac: allow
+LldpSettings:
+  ClassId: fabric.LldpSettings
+  ReceiveEnabled: true
+  TransmitEnabled: true
+MacRegistrationMode: allVlans
+UplinkFailAction: linkDown
+---
+ClassId: vnic.EthQosPolicy
+Name: EthQoS
+Organization: UCSX-LAB-RESOURCES
+#settings are empty because the defaults suffice.
+---
+ClassId: vnic.EthAdapterPolicy
+Name: EthAdapt
+Organization: UCSX-LAB-RESOURCES
+#settings
+AdvancedFilter: false
+ArfsSettings:
+  ClassId: vnic.ArfsSettings
+  Enabled: false
+CompletionQueueSettings:
+  ClassId: vnic.CompletionQueueSettings
+  Count: 2
+  RingSize: 1
+GeneveEnabled: false
+InterruptScaling: false
+InterruptSettings:
+  ClassId: vnic.EthInterruptSettings
+  CoalescingTime: 125
+  CoalescingType: MIN
+  Count: 4
+  Mode: MSIx
+NvgreSettings:
+  ClassId: vnic.NvgreSettings
+  Enabled: false
+PtpSettings:
+  ClassId: vnic.PtpSettings
+  Enabled: false
+RoceSettings:
+  ClassId: vnic.RoceSettings
+  ClassOfService: 5
+  Enabled: false
+  MemoryRegions: 0
+  QueuePairs: 0
+  ResourceGroups: 0
+  Version: 1
+RssHashSettings:
+  ClassId: vnic.RssHashSettings
+  Ipv4Hash: false
+  Ipv6ExtHash: false
+  Ipv6Hash: false
+  TcpIpv4Hash: false
+  TcpIpv6ExtHash: false
+  TcpIpv6Hash: false
+  UdpIpv4Hash: false
+  UdpIpv6Hash: false
+RssSettings: false
+RxQueueSettings:
+  ClassId: vnic.EthRxQueueSettings
+  Count: 1
+  RingSize: 512
+TcpOffloadSettings:
+  ClassId: vnic.TcpOffloadSettings
+  LargeReceive: true
+  LargeSend: true
+  RxChecksum: true
+  TxChecksum: true
+TxQueueSettings:
+  ClassId: vnic.EthTxQueueSettings
+  Count: 1
+  RingSize: 256
+UplinkFailbackTimeout: 5
+VxlanSettings:
+  ClassId: vnic.VxlanSettings
+  Enabled: false
+---
+ClassId: vnic.LanConnectivityPolicy
+Name: LAN
+Organization: UCSX-LAB-RESOURCES
+#settings
+TargetPlatform: FIAttached
+PlacementMode: auto
+---
+ClassId: bulk.MoCloner
+Organization: UCSX-LAB-RESOURCES
+WorkflowNameSuffix: "Add vNIC from a Template"
+Sources: 
+  - MoRef:vnic.VnicTemplate[UCSX-LAB-RESOURCES\vNIC-Template-A]
+Targets:
+  - Name: eth0
+    ObjectType: vnic.EthIf
+    LanConnectivityPolicy: MoRef:vnic.LanConnectivityPolicy[UCSX-LAB-RESOURCES\LAN]
+    MacAddressType: "POOL"
+    Placement:
+      AutoPciLink: true
+      AutoSlotId: true
+---
+ClassId: bulk.MoCloner
+Organization: UCSX-LAB-RESOURCES
+WorkflowNameSuffix: "Add vNIC from a Template"
+Sources: 
+  - MoRef:vnic.VnicTemplate[UCSX-LAB-RESOURCES\vNIC-Template-B]
+Targets:
+  - Name: eth1
+    ObjectType: vnic.EthIf
+    LanConnectivityPolicy: MoRef:vnic.LanConnectivityPolicy[UCSX-LAB-RESOURCES\LAN]
+    MacAddressType: "POOL"
+    Placement:
+      AutoPciLink: true
+      AutoSlotId: true

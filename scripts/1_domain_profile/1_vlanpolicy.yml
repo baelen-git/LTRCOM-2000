@@ -1,0 +1,36 @@
+ClassId: fabric.EthNetworkPolicy
+Name: VLANS
+Organization: UCSX-LAB-RESOURCES
+---
+ClassId: fabric.MulticastPolicy
+Name: Multicast-Policy
+Organization: UCSX-LAB-RESOURCES
+#settings
+QuerierIpAddress: ""
+QuerierIpAddressPeer: ""
+QuerierState: Disabled
+SnoopingState: Enabled
+SrcIpProxy: Enabled
+---
+ClassId: fabric.Vlan
+Name: VLAN_5
+#settings
+EthNetworkPolicy: MoRef[UCSX-LAB-RESOURCES\VLANS]
+MulticastPolicy: MoRef[UCSX-LAB-RESOURCES\Multicast-Policy]
+VlanId: 5
+AutoAllowOnUplinks: true
+IsNative: false
+PrimaryVlanId: 0
+SharingType: None
+---
+ClassId: fabric.Vlan
+Name: VLAN_70
+#settings
+EthNetworkPolicy: MoRef[UCSX-LAB-RESOURCES\VLANS]
+MulticastPolicy: MoRef[UCSX-LAB-RESOURCES\Multicast-Policy]
+VlanId: 70
+AutoAllowOnUplinks: true
+IsNative: false
+PrimaryVlanId: 0
+SharingType: None
+

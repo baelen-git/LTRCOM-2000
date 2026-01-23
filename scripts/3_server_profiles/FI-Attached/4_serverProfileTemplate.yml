@@ -1,0 +1,23 @@
+ClassId: server.ProfileTemplate
+Name: LAB-RESOURCE
+Organization: UCSX-LAB-RESOURCES
+#settings
+TargetPlatform: FIAttached
+UuidAddressType: POOL
+UuidPool: MoRef[UCSX-LAB-RESOURCES\UUID-Pool]
+Type: instance
+PolicyBucket:
+  - MoRef:bios.Policy[UCSX-LAB-RESOURCES\BIOS-Policy]
+  - MoRef:boot.PrecisionPolicy[UCSX-LAB-RESOURCES\BootOrder]
+  # - MoRef:ipmioverlan.Policy[UCSX-LAB-RESOURCES\IMM-IPMI-off]
+  - MoRef:kvm.Policy[UCSX-LAB-RESOURCES\VirtualKVM]
+  - MoRef:sol.Policy[UCSX-LAB-RESOURCES\SOL]
+  # - MoRef:storage.StoragePolicy[UCSX-LAB-RESOURCES\IMM-M.2]
+  - MoRef:vnic.LanConnectivityPolicy[UCSX-LAB-RESOURCES\LAN]
+  - MoRef:access.Policy[UCSX-LAB-RESOURCES\IMCAccess]
+  - MoRef:power.Policy[UCSX-LAB-RESOURCES\ChassisPower]
+  - MoRef:firmware.Policy[UCSX-LAB-RESOURCES\Firmware]
+  - MoRef:thermal.Policy[UCSX-LAB-RESOURCES\Chassis-Thermal]
+  - MoRef:vmedia.Policy[UCSX-LAB-RESOURCES\vMedia-Policy]
+  - MoRef:iam.EndPointUserPolicy[UCSX-LAB-RESOURCES\LocalAdmin]
+  - MoRef:snmp.Policy[UCSX-LAB-RESOURCES\SNMP]

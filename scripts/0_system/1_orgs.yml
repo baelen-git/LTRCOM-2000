@@ -1,0 +1,43 @@
+ClassId: resource.Group
+Name: ucs-int-tme-4
+#settings
+Selectors:
+- ClassId: resource.Selector
+  Selector: /api/v1/asset/DeviceRegistrations?$filter=Moid in('6970a5366f726133015dac32')
+---
+ClassId: resource.Group
+Name: ucs-int-tme-5
+#settings
+Selectors:
+- ClassId: resource.Selector
+  Selector: /api/v1/asset/DeviceRegistrations?$filter=Moid in('6970a5426f726133015daca2')
+---
+ClassId: resource.Group
+Name: ucs-int-tme-6
+#settings
+Selectors:
+- ClassId: resource.Selector
+  Selector: /api/v1/asset/DeviceRegistrations?$filter=Moid in('6970a5286f726133015dabb6')
+---
+ClassId: resource.Group
+Name: ucs-int-tme-7
+#settings
+Selectors:
+- ClassId: resource.Selector
+  Selector: /api/v1/asset/DeviceRegistrations?$filter=Moid in('6970a5506f726133015dad22')
+---
+ClassId: organization.Organization
+Name: X-Series-Configuration
+ResourceGroups:
+- MoRef[ucs-int-tme-4]
+- MoRef[ucs-int-tme-5]
+- MoRef[ucs-int-tme-6]
+- MoRef[ucs-int-tme-7]
+---
+ClassId: organization.Organization
+Description: Source of truth for all IMM Labs, will be shared by the actual Lab organisations
+Name: UCSX-LAB-RESOURCES
+---
+ClassId: iam.SharingRule
+SharedResource: MoRef:organization.Organization[UCSX-LAB-RESOURCES]
+SharedWithResource: MoRef:organization.Organization[X-Series-Configuration]

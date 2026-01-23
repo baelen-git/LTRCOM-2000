@@ -1,0 +1,37 @@
+---
+ClassId: bulk.MoCloner
+Sources: 
+  - MoRef:fabric.SwitchClusterProfileTemplate[UCSX-LAB-RESOURCES\Domain-Template]
+Targets:
+  - Name: Domain-01
+    ObjectType: fabric.SwitchClusterProfile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ClusterAssignments: 
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO27010LBN']
+        SourceSwitchProfileOrTemplateName: Domain-Template-A
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO26531MMV']
+        SourceSwitchProfileOrTemplateName: Domain-Template-B
+  - Name: Domain-02
+    ObjectType: fabric.SwitchClusterProfile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ClusterAssignments: 
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO26241GUD']
+        SourceSwitchProfileOrTemplateName: Domain-Template-A
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO26250W77']
+        SourceSwitchProfileOrTemplateName: Domain-Template-B
+  - Name: Domain-03
+    ObjectType: fabric.SwitchClusterProfile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ClusterAssignments: 
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO265225C2']
+        SourceSwitchProfileOrTemplateName: Domain-Template-A
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO26531MHD']
+        SourceSwitchProfileOrTemplateName: Domain-Template-B
+  - Name: Domain-04
+    ObjectType: fabric.SwitchClusterProfile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ClusterAssignments: 
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO26240CPF']
+        SourceSwitchProfileOrTemplateName: Domain-Template-A
+      - NetworkElement: MoRef:network.Element[$filter:Serial eq 'FDO26241GV3']
+        SourceSwitchProfileOrTemplateName: Domain-Template-B

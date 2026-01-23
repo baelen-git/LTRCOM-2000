@@ -1,0 +1,39 @@
+---
+# INT-UCS-4-1 chassis - 8 servers
+ClassId: bulk.Request
+Verb: POST
+Uri: "/v1/os/Installs"
+Requests:
+- ObjectType: bulk.RestSubRequest
+  Body:
+    Description: ''
+    InstallMethod: vMedia
+    Image: MoRef:softwarerepository.OperatingSystemFile[rhel-10]
+    OsduImage: MoRef:firmware.ServerConfigurationUtilityDistributable[ucs-scu-7.1.5.250100.iso]
+    OverrideSecureBoot: true
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    Answers:
+      AnswerFile: "%pre\n# Extract hostname from OEM string and trim whitespace\nHOSTNAME=$(dmidecode
+        --oem-string 2 | awk -F\":\" '{ print $2 }' | xargs)\nif [ -z \"$HOSTNAME\"
+        ]; then HOSTNAME=\"localhost\"; fi\n\n# Write network config - --activate
+        ensures network is up for %post scripts\necho \"network --bootproto=dhcp --device=link
+        --hostname=${HOSTNAME} --activate\" > /tmp/network-include\n%end\n\n# Installation
+        Media\ncdrom\ncmdline\nfirstboot --enable\nkeyboard --vckeymap=us --xlayouts='us'\nlang
+        en_US.UTF-8\n\n# --- Intersight Placeholders ---\nDISKIDPLACEHOLDER \n# -------------------------------\n\nautopart
+        --type=lvm\nzerombr\nselinux --disabled\n\n# Bootloader is required for a
+        bootable system\nbootloader --location=mbr\n\n# Dynamic Network Configuration\n%include
+        /tmp/network-include\n\n# Root Password and SSH Key\nrootpw UCSX@Cisco123
+        --allow-ssh\nsshkey --username=root \"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF1v8Db0W5UBPCWvt2ytlGJDMppO5Qj/WI/CQ66N+IrX
+        baelen@BAELEN-M-J1FT\"\n\nservices --enabled=\"chronyd\"\ntimezone America/New_York
+        --utc\n\n%packages\n@^minimal-environment\n@development\n@rpm-development-tools\n@system-tools\n%end\n\n%addon
+        com_redhat_kdump --disable --reserve-mb='auto'\n%end\n\n%post --nochroot --log=/root/ks-post-nochroot.log\n#
+        Placeholder for Intersight status reporting\nOS_INSTALL_COMPLETED_STATUS_PLACEHOLDER\n%end\nreboot"
+      Source: File
+    ConfigurationFile: 
+    AdditionalParameters: 
+    InstallTarget:
+      ObjectType: os.VirtualDrive
+      Name: MStorBootVd
+      StorageControllerSlotId: MSTOR-RAID
+      Id: '0'
+    Server: MoRef:compute.Blade[int-ucs-4-1-5]

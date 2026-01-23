@@ -1,0 +1,21 @@
+---
+ClassId: bulk.MoCloner
+Sources: 
+  - MoRef:chassis.ProfileTemplate[UCSX-LAB-RESOURCES\Chassis-Template]
+Targets:
+  - Name: Chassis-01
+    ObjectType: chassis.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    AssignedChassis: MoRef:equipment.Chassis[int-ucs-4-1]
+  - Name: Chassis-02
+    ObjectType: chassis.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    AssignedChassis: MoRef:equipment.Chassis[int-ucs-5-1]
+  - Name: Chassis-03
+    ObjectType: chassis.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    AssignedChassis: MoRef:equipment.Chassis[int-ucs-6-1]
+  - Name: Chassis-04
+    ObjectType: chassis.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    AssignedChassis: MoRef:equipment.Chassis[int-ucs-7-1]

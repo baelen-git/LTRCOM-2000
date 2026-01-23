@@ -1,0 +1,8 @@
+ClassId: chassis.ProfileTemplate
+Name: Chassis-Template
+Organization: UCSX-LAB-RESOURCES
+PolicyBucket:
+  - MoRef:access.Policy[UCSX-LAB-RESOURCES\Chassis-IMC]
+  - MoRef:power.Policy[UCSX-LAB-RESOURCES\ChassisPower]
+  - MoRef:snmp.Policy[UCSX-LAB-RESOURCES\SNMP]
+  - MoRef:thermal.Policy[UCSX-LAB-RESOURCES\Chassis-Thermal]

@@ -1,0 +1,13 @@
+ClassId: ippool.Pool
+Name: UCSXKVMPool
+Organization: UCSX-LAB-RESOURCES
+IpV4Config:
+  ClassId: ippool.IpV4Config
+  Gateway: 10.5.4.1
+  Netmask: 255.255.252.0
+  PrimaryDns: 10.5.4.10
+  SecondaryDns: 10.5.4.11
+IpV4Blocks:
+- ClassId: ippool.IpV4Block
+  From: 10.5.4.160
+  To: 10.5.4.207

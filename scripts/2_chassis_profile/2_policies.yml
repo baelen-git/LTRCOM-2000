@@ -1,0 +1,33 @@
+ClassId: access.Policy
+Name: Chassis-IMC
+Organization: UCSX-LAB-RESOURCES
+#settings
+AddressType:
+  ClassId: access.AddressType
+  EnableIpV4: true
+  EnableIpV6: false
+ConfigurationType:
+  ClassId: access.ConfigurationType
+  ConfigureInband: true
+  ConfigureOutOfBand: false
+InbandVlan: 5
+InbandIpPool: MoRef[UCSX-LAB-RESOURCES\UCSXKVMPool]
+---
+ClassId: power.Policy
+Name: ChassisPower
+Organization: UCSX-LAB-RESOURCES
+#settings
+AllocatedBudget: 0
+DynamicRebalancing: Enabled
+ExtendedPowerCapacity: Enabled
+PowerPriority: Low
+PowerProfiling: Enabled
+PowerRestoreState: AlwaysOff
+PowerSaveMode: Enabled
+RedundancyMode: Grid
+---
+ClassId: thermal.Policy
+Name: Chassis-Thermal
+Organization: UCSX-LAB-RESOURCES
+#settings
+FanControlMode: Balanced

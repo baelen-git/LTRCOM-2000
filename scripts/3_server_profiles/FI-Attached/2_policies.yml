@@ -1,0 +1,112 @@
+ClassId: access.Policy
+Name: IMCAccess
+Organization: UCSX-LAB-RESOURCES
+#settings
+AddressType:
+  ClassId: access.AddressType
+  EnableIpV4: true
+  EnableIpV6: false
+ConfigurationType:
+  ClassId: access.ConfigurationType
+  ConfigureInband: true
+  ConfigureOutOfBand: false
+InbandVlan: 5
+InbandIpPool: MoRef[UCSX-LAB-RESOURCES\UCSXKVMPool]
+# ---
+# ClassId: storage.StoragePolicy
+# Name: IMM-M.2
+# Organization: UCSX-LAB-RESOURCES
+# #settings
+# M2VirtualDrive:
+#   ClassId: storage.M2VirtualDriveConfig
+#   ObjectType: storage.M2VirtualDriveConfig
+#   Enable: true
+#   ControllerSlot: MSTOR-RAID-1
+# UnusedDisksState: Jbod
+---
+ClassId: boot.PrecisionPolicy
+Name: BootOrder
+Organization: UCSX-LAB-RESOURCES
+#settings
+BootDevices:
+- Bootloader:
+  ObjectType: boot.LocalDisk
+  Enabled: true
+  Name: M2Card
+  Slot: MSTOR-RAID
+- ObjectType: boot.VirtualMedia
+  Enabled: false
+  Name: CIMC-DVD
+  Subtype: cimc-mapped-dvd
+# ---
+# ClassId: ipmioverlan.Policy
+# Name: IMM-IPMI-off
+# Organization: UCSX-LAB-RESOURCES
+# #settings
+# Enabled: false
+---
+ClassId: kvm.Policy
+Name: VirtualKVM
+Organization: UCSX-LAB-RESOURCES
+#settings
+TunneledKvmEnabled: true
+---
+ClassId: bios.Policy
+Name: BIOS-Policy
+Organization: UCSX-LAB-RESOURCES
+#settings 
+ConsoleRedirection: com-0
+---
+ClassId: iam.EndPointUserPolicy
+Organization: UCSX-LAB-RESOURCES
+Name: LocalAdmin
+#settings
+PasswordProperties:
+  ClassId: iam.EndPointPasswordProperties
+  EnablePasswordExpiry: false
+  EnforceStrongPassword: true
+  ForceSendPassword: false
+  GracePeriod: 0
+  NotificationPeriod: 15
+  PasswordExpiryDuration: 90
+  PasswordHistory: 0
+---
+ClassId: iam.EndPointUser
+Organization: UCSX-LAB-RESOURCES
+Name: admin
+---
+ClassId: iam.EndPointUserRole
+#settings
+Enabled: true
+EndPointRole: 
+  - MoRef:iam.EndPointRole[$filter:Type eq 'IMC' and Name eq 'admin']
+EndPointUser: MoRef[UCSX-LAB-RESOURCES\admin]
+EndPointUserPolicy: MoRef[UCSX-LAB-RESOURCES\LocalAdmin]
+Password: UCSX@Cisco123
+---
+ClassId: firmware.Policy
+Name: Firmware
+Organization: UCSX-LAB-RESOURCES
+#settings
+ModelBundleCombo:
+- BundleVersion: 5.4(0.250047)
+  ClassId: firmware.ModelBundleVersion
+  ModelFamily: UCSX-210C-M6
+  ObjectType: firmware.ModelBundleVersion
+TargetPlatform: FIAttached
+---
+ClassId: vmedia.Policy
+Name: vMedia-Policy
+Organization: UCSX-LAB-RESOURCES
+#settings
+Enabled: true
+Encryption: true
+LowPowerUsb: true
+Mappings: []
+---
+ClassId: sol.Policy
+Name: SOL
+Organization: UCSX-LAB-RESOURCES
+#settings 
+BaudRate: 115200
+ComPort: com0

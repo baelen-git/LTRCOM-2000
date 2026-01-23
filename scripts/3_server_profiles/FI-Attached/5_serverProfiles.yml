@@ -1,0 +1,182 @@
+---
+ClassId: resourcepool.QualificationPolicy
+Name: All-X210c-M6
+Organization: X-Series-Configuration
+#settings
+Qualifiers:
+- ObjectType: resource.BladeQualifier
+  Pids:
+  - UCSX-210C-M6
+- ObjectType: resource.GpuQualifier
+  GpuEvaluationType: Unspecified
+---
+ClassId: resourcepool.Pool
+Name: ServerPool
+Organization: X-Series-Configuration
+#settings
+ResourcePoolParameters:
+  ManagementMode: Intersight
+  ObjectType: resourcepool.ServerPoolParameters
+ResourceType: Server
+QualificationPolicies:
+- MoRef[X-Series-Configuration\All-X210c-M6]
+---
+ClassId: bulk.MoCloner
+Sources: 
+  - MoRef:server.ProfileTemplate[UCSX-LAB-RESOURCES\LAB-RESOURCE]
+Targets:
+  - Name: RHEL-01
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-02
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-03
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-04
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-05
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-06
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-07
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-08
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-09
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-10
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-11
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-12
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-13
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-14
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-15
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-16
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-17
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-18
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-19
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-20
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-21
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-22
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-23
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-24
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-25
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-26
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-27
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-28
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-29
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-30
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool
+  - Name: RHEL-31
+    ObjectType: server.Profile
+    Organization: MoRef:organization.Organization[X-Series-Configuration]
+    ServerPool: MoRef:resourcepool.Pool[X-Series-Configuration\ServerPool]
+    ServerAssignmentMode: Pool

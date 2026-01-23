@@ -1,0 +1,34 @@
+ClassId: macpool.Pool
+Name: MAC-Pool
+Organization: UCSX-LAB-RESOURCES
+#settings
+MacBlocks:
+- ClassId: macpool.Block
+  From: 00:25:B5:AA:66:00
+  Size: 256
+---
+ClassId: uuidpool.Pool
+Name: UUID-Pool
+Organization: UCSX-LAB-RESOURCES
+Prefix: 00000000-0010-0000
+UuidSuffixBlocks:
+- ClassId: uuidpool.UuidBlock
+  From: 0000-000000100001
+  Size: 256
+# ---
+#####
+# Already configured when creating the chassis
+#####
+# ClassId: ippool.Pool
+# Name: UCSXKVMPool
+# Organization: UCSX-LAB-RESOURCES
+# IpV4Config:
+#   ClassId: ippool.IpV4Config
+#   Gateway: 10.5.4.1
+#   Netmask: 255.255.252.0
+#   PrimaryDns: 10.5.4.10
+#   SecondaryDns: 10.5.4.11
+# IpV4Blocks:
+# - ClassId: ippool.IpV4Block
+#   From: 10.5.4.160
+#   To: 10.5.4.207

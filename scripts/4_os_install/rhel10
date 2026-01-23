@@ -1,0 +1,51 @@
+%pre
+# Extract hostname from OEM string and trim whitespace
+HOSTNAME=$(dmidecode --oem-string 2 | awk -F":" '{ print $2 }' | xargs)
+if [ -z "$HOSTNAME" ]; then HOSTNAME="localhost"; fi
+
+# Write network config - --activate ensures network is up for %post scripts
+echo "network --bootproto=dhcp --device=link --hostname=${HOSTNAME} --activate" > /tmp/network-include
+%end
+
+# Installation Media
+cdrom
+cmdline
+firstboot --enable
+keyboard --vckeymap=us --xlayouts='us'
+lang en_US.UTF-8
+
+# --- Intersight Placeholders ---
+DISKIDPLACEHOLDER 
+# -------------------------------
+
+autopart --type=lvm
+zerombr
+selinux --disabled
+
+# Bootloader is required for a bootable system
+bootloader --location=mbr
+
+# Dynamic Network Configuration
+%include /tmp/network-include
+
+# Root Password and SSH Key
+rootpw UCSX@Cisco123 --allow-ssh
+sshkey --username=root "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF1v8Db0W5UBPCWvt2ytlGJDMppO5Qj/WI/CQ66N+IrX baelen@BAELEN-M-J1FT"
+
+services --enabled="chronyd"
+timezone America/New_York --utc
+
+%packages
+@^minimal-environment
+@system-tools
+%end
+
+%addon com_redhat_kdump --disable --reserve-mb='auto'
+%end
+
+%post --nochroot --log=/root/ks-post-nochroot.log
+# Placeholder for Intersight status reporting
+OS_INSTALL_COMPLETED_STATUS_PLACEHOLDER
+%end
+
+reboot

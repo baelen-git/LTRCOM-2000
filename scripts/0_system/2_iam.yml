@@ -1,0 +1,27 @@
+ClassId: iam.Permission
+Name: X-Series-Configuration
+---
+ClassId: iam.ResourceRoles
+Permission: MoRef[X-Series-Configuration]
+Resource: MoRef:organization.Organization[X-Series-Configuration]
+Roles: 
+- MoRef[$filter:Name eq 'Server Administrator']
+- MoRef[$filter:Name eq 'UCS Domain Administrator']
+- MoRef[$filter:Name eq 'Workflow Designer']
+---
+ClassId: iam.ResourceRoles
+Permission: MoRef[X-Series-Configuration]
+Resource: MoRef:organization.Organization[UCSX-LAB-RESOURCES]
+Roles: 
+- MoRef[Read-Only]
+---
+ClassId: iam.UserGroup
+Name: intersight-guests
+Idp: MoRef[TME-ADFS]
+Permissions: 
+- MoRef[X-Series-Configuration]
+---
+ClassId: iam.Qualifier
+Usergroup: MoRef[intersight-guests]
+Value:
+- DevNetRole

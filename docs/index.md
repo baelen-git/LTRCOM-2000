@@ -3,6 +3,6 @@
 
 ## Lab proctored by:
 
-* David Soper - Technical Marketing Engineer
-* Joost van der Made - Technical Marketing Engineer
-* Nick Mortari - Technical Marketing Engineer
+* Boris Aelen - Technical Marketing Engineer
+* Jason McGee - Director, Technical Marketing
+* Tushar Patel - Distinguished Technical Marketing Engineer
