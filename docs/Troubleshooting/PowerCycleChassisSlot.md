@@ -5,7 +5,7 @@ This operation can save you a trip to the datacenter when your server is not sho
 Instead of reseating the server in the slot you can try to power cycle the chassis slot and see if this helps.
 
 **NOTE**:  
-! Before you do this step make sure that all workflows for your server are finished !
+**! Before you do this step make sure that all workflows for your server are finished !**
 
 In order to reset the chassis slot you must go to 
 Chassis -> [[Chassis Name Of Your Domain]] -> Click on the Chassis in the details section -> Actions -> Power Cycle Chassis slot
@@ -15,6 +15,7 @@ Chassis -> [[Chassis Name Of Your Domain]] -> Click on the Chassis in the detail
 Select the right slot for your server, which is **the last digit of your [[ServerName]]**.
 
 **ATTENTION! This is a disruptive operation, your server will reboot.**
+Before you start the power cycle look at your OS ping again and observe the downtime during this operation.
 
 ![Power Cycle Slot 2](./PowerCycleSlot2.png "Power Cycle Slot 2")
 

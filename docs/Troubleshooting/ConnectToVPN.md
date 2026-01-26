@@ -19,9 +19,9 @@ Now you will see a warning that our VPN server has an Untrusted Server Certifica
 
 ![Connect To VPN 4](./ConnectToVPN4.png "Connect To VPN 4")
 
-Choose the “**Workshop**” group and enter your credentials which are the [[Username]] and [[VPN Password]] values from the User Details Worksheet.
+Choose the “**CiscoLive**” group and enter your credentials which are the [[Username]] and [[VPN Password]] values from the User Details Worksheet.
 
-**IMPORTANT**: The username is without @intersighttme.com, enter your username like we did below:
+**IMPORTANT**: The username is without @intersighttme.de, enter your username like we did below:
 
 ![Connect To VPN 5](./ConnectToVPN5.png "Connect To VPN 5")
 

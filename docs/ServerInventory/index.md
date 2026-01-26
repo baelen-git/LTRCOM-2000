@@ -1,7 +1,7 @@
 # Server Inventory
 
 Before we dive into the server inventory, please go to Servers and click on **your assigned server**.
-In this example we are going to look at SRV-2 or RTP91-FI6454-01-1-2
+In this example we are going to look at SRV01 or int-ucs-4-1-1
 
 ![Server Inventory 1](./ServerInventory1.png "Server Inventory 1")
 

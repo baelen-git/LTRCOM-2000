@@ -6,7 +6,7 @@ During the creation of this document, the whole environment wasn’t up and runn
 
 This Explorer feature will improve and more will be added.
 
-On the right side, select Explorer.
+On the left side, select Explorer.
 
 ![Explorer 1](./Explorer1.png "Explorer 1")
 
@@ -67,7 +67,7 @@ To find the power usage of one chassis, you need to know the chassis identifier.
 
 One easy way to get this, is to go to the Chassis you want to know the details and select metrics.
 
-On the left, go to **Operate** -> **Chassis** / Select **RTP91-FI6454-04-1** (Chassis name) / Click **Metrics**. (On the top)
+On the left, go to **Operate** -> **Chassis** / Select **int-ucs-04-1** (Chassis name) / Click **Metrics**. (On the top)
 
 Look for the **Power** with PSU1 as Endpoint.
 
