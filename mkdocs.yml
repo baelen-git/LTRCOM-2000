@@ -78,16 +78,6 @@ markdown_extensions:
   - pymdownx.tilde
 
 nav:
-  #- Disclaimer:
-  #  - Disclaimer/index.md
-  #- Scenario:
-  #  - Scenario/index.md
-  #- Network Diagram:
-  #  - NetworkDiagram/index.md
-  #- Connecting to the Lab Components:
-  #  - Connect to Intersight: LabComponents/1-ConnectToIntersight.md
-  #  - Command Palette / User Label: LabComponents/2-CommandPaletteUserLabel.md
-
   - Instructions:
     - Disclaimer:
       - Disclaimer/index.md
@@ -133,4 +123,4 @@ nav:
 
 plugins:
   - search
-  # - print-site
+  - print-site
