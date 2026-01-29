@@ -214,25 +214,20 @@ process_domain_profiles() {
 clear_user_labels() {
     echo "--- Clearing Server User Labels ---"
 
-    # Use jq to extract Moid + SourceObjectType
+    # Use jq to extract server names
     local server_list
     server_list=$(isctl get compute physicalsummary --filter "PermissionResources.Moid eq '${ORG_MOID}'" -o json 2>/dev/null | \
-        jq -r '.[]? | select(.Moid != null) | "\(.Moid) \(.SourceObjectType // "")"')
+        jq -r '.[]? | select(.Name != null) | .Name')
 
     if [ -z "$server_list" ]; then
         echo "No servers found."
         return
     fi
 
-    while read -r MOID SOURCEOBJECTTYPE; do
-        [ -z "$MOID" ] && continue
-        if [ "$SOURCEOBJECTTYPE" = "compute.Blade" ]; then
-            echo -n "Clearing user label for blade server '${MOID}'... "
-            isctl update compute serversetting moid "$MOID" --ServerConfig '{"UserLabel": ""}' > /dev/null
-        else
-            echo -n "Clearing user label for server '${MOID}'... ${CLASSID} "
-            isctl update compute serversetting moid "$MOID" --ServerConfig '{"UserLabel": ""}' > /dev/null
-        fi
+    while read -r SERVER_NAME; do
+        [ -z "$SERVER_NAME" ] && continue
+        echo -n "Clearing user label for server '${SERVER_NAME}'... "
+        isctl update compute serversetting name "$SERVER_NAME" --ServerConfig '{"UserLabel": ""}' > /dev/null
         if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
     done <<< "$server_list"
 }
