@@ -95,6 +95,24 @@ done
 1. run the cleanup script
 ```
 ./clean_org.sh X-Series-Configuration
+
+# Dry run (no unassign/delete)
+./clean_org.sh X-Series-Configuration --server
+
+# Only clean server profiles
+./clean_org.sh X-Series-Configuration --server --unassign --delete
+
+# Only clean chassis profiles
+./clean_org.sh X-Series-Configuration --chassis --unassign --delete
+
+# Only clean domain profiles
+./clean_org.sh X-Series-Configuration --domain --unassign --delete
+
+# Clean server + domain profiles
+./clean_org.sh X-Series-Configuration --server --domain --unassign --delete
+
+# Clear user labels on all servers in the org
+./clean_org.sh X-Series-Configuration --clear-user-labels
 ```
 
 2. Remove all the templates, profiles, policies and pools.

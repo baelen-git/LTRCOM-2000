@@ -1,14 +1,59 @@
 #!/bin/bash
 
 # --- Configuration & Validation ---
-if [ -z "$1" ]; then
+usage() {
+  echo "Usage: $0 <org name> [--server] [--chassis] [--domain] [--unassign] [--delete] [--clear-user-labels]"
+  echo ""
+  echo "If no profile flags are provided, all profile types are cleaned."
+  echo "If --unassign and --delete are both omitted, no changes are made (dry run)."
+}
+
+ORG_NAME=""
+DELETE=false
+UNASSIGN=false
+CLEAR_USER_LABELS=false
+
+CLEAN_SERVER=false
+CLEAN_CHASSIS=false
+CLEAN_DOMAIN=false
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --server)  CLEAN_SERVER=true ;;
+    --chassis) CLEAN_CHASSIS=true ;;
+    --domain)  CLEAN_DOMAIN=true ;;
+    --unassign) UNASSIGN=true ;;
+    --delete)   DELETE=true ;;
+    --clear-user-labels|--clear-user-label) CLEAR_USER_LABELS=true ;;
+    -h|--help) usage; exit 0 ;;
+    -*)
+      echo "Error: Unknown option: $1"
+      usage
+      exit 1
+      ;;
+    *)
+      if [ -z "$ORG_NAME" ]; then
+        ORG_NAME="$1"
+      else
+        echo "Error: Unexpected argument: $1"
+        usage
+        exit 1
+      fi
+      ;;
+  esac
+  shift
+done
+
+if [ -z "$ORG_NAME" ]; then
   echo "Error: No org was provided."
-  echo "Usage: $0 <org name>"
+  usage
   exit 1
 fi
 
-ORG_NAME="$1"
-DELETE=true
+# If no specific profile flags were set, do nothing by default (dry run)
+if ! $CLEAN_SERVER && ! $CLEAN_CHASSIS && ! $CLEAN_DOMAIN; then
+  echo "No profile flags provided; no profile operations will run."
+fi
 
 # Get the Org MOID
 ORG_MOID=$(isctl get organization organization --filter "Name eq '${ORG_NAME}'" -o jsonpath="[*].Moid")
@@ -69,16 +114,15 @@ wait_for_workflows() {
 }
 
 # Function to process standard profiles (Server and Chassis)
-# Usage: process_profiles "Resource Name" "isctl_command_type" "Filter_Field"
+# Usage: process_profiles "Resource Name" "isctl_command_type"
 process_profiles() {
     local resource_type="$1"   # e.g., "server profile"
     local isctl_type="$2"      # e.g., "server profile" (usually same as above)
-    local filter_field="$3"    # e.g., "Organization.Moid"
 
     echo "--- Processing ${resource_type}s ---"
 
     # 1. Get List
-    local list=$(isctl get ${isctl_type} --filter "${filter_field} eq '${ORG_MOID}'" -o jsonpath="[*].Name")
+    local list=$(isctl get ${isctl_type} --filter "Organization.Moid eq '${ORG_MOID}'" -o jsonpath="[*].Name")
 
     if [ -z "$list" ]; then
         echo "No ${resource_type}s found."
@@ -88,13 +132,19 @@ process_profiles() {
     # 2. Unassign
     while read -r ITEM; do
         [ -z "$ITEM" ] && continue
-        echo -n "Attempting to unassign ${resource_type} '${ITEM}'... "
-        isctl update ${isctl_type} name "$ITEM" --Action Unassign > /dev/null
-        if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
+        if [ "$UNASSIGN" = true ]; then
+            echo -n "Attempting to unassign ${resource_type} '${ITEM}'... "
+            isctl update ${isctl_type} name "$ITEM" --Action Unassign > /dev/null
+            if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
+        else
+            echo "(Dry Run) isctl update ${isctl_type} name '${ITEM}' --Action Unassign"
+        fi
     done <<< "$list"
 
     # 3. Wait for Workflows
-    wait_for_workflows "$list"
+    if [ "$UNASSIGN" = true ]; then
+        wait_for_workflows "$list"
+    fi
 
     # 4. Delete
     if [ "$DELETE" = true ]; then
@@ -103,6 +153,11 @@ process_profiles() {
             echo -n "Attempting to delete ${resource_type} '${ITEM}'... "
             isctl delete ${isctl_type} name "$ITEM" > /dev/null
             if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
+        done <<< "$list"
+    else
+        while read -r ITEM; do
+            [ -z "$ITEM" ] && continue
+            echo "(Dry Run) isctl delete ${isctl_type} name '${ITEM}'"
         done <<< "$list"
     fi
 }
@@ -125,45 +180,90 @@ process_domain_profiles() {
         [ -z "$DP" ] && continue
         
         for SUFFIX in "-A" "-B"; do
-            echo -n "Attempting to unassign domain profile node ${DP}${SUFFIX}... "
-            isctl update fabric switchprofile name "${DP}${SUFFIX}" --Action Unassign > /dev/null
-            if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
+            if [ "$UNASSIGN" = true ]; then
+                echo -n "Attempting to unassign domain profile node ${DP}${SUFFIX}... "
+                isctl update fabric switchprofile name "${DP}${SUFFIX}" --Action Unassign > /dev/null
+                if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
+            else
+                echo "(Dry Run) isctl update fabric switchprofile name '${DP}${SUFFIX}' --Action Unassign"
+            fi
         done
     done <<< "$list"
 
     # 3. Wait for Workflows
     # Note: Workflows are usually tied to the Cluster Profile name or the Node names depending on Intersight version.
     # Assuming InitiatorName matches the Cluster Profile name based on your original script logic.
-    wait_for_workflows "$list"
+    if [ "$UNASSIGN" = true ]; then
+        wait_for_workflows "$list"
+    fi
 
     # 4. Delete Cluster Profile
     while read -r DP; do
         [ -z "$DP" ] && continue
-        echo -n "Attempting to delete domain profile '${DP}'... "
-        
         if [ "$DELETE" = true ]; then
+            echo -n "Attempting to delete domain profile '${DP}'... "
             isctl delete fabric switchclusterprofile name "$DP" > /dev/null
             if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
         else 
-            echo "(Dry Run) isctl delete fabric switchclusterprofile name '$DP'"
+            echo "(Dry Run) isctl delete fabric switchclusterprofile name '${DP}'"
         fi
     done <<< "$list"
+}
+
+# Function to clear user labels for all servers in the org
+clear_user_labels() {
+    echo "--- Clearing Server User Labels ---"
+
+    # Use jq to extract Moid + SourceObjectType
+    local server_list
+    server_list=$(isctl get compute physicalsummary --filter "PermissionResources.Moid eq '${ORG_MOID}'" -o json 2>/dev/null | \
+        jq -r '.[]? | select(.Moid != null) | "\(.Moid) \(.SourceObjectType // "")"')
+
+    if [ -z "$server_list" ]; then
+        echo "No servers found."
+        return
+    fi
+
+    while read -r MOID SOURCEOBJECTTYPE; do
+        [ -z "$MOID" ] && continue
+        if [ "$SOURCEOBJECTTYPE" = "compute.Blade" ]; then
+            echo -n "Clearing user label for blade server '${MOID}'... "
+            isctl update compute serversetting moid "$MOID" --ServerConfig '{"UserLabel": ""}' > /dev/null
+        else
+            echo -n "Clearing user label for server '${MOID}'... ${CLASSID} "
+            isctl update compute serversetting moid "$MOID" --ServerConfig '{"UserLabel": ""}' > /dev/null
+        fi
+        if [ $? -eq 0 ]; then echo "Success."; else echo "Error." >&2; fi
+    done <<< "$server_list"
 }
 
 # --- Main Execution ---
 
 # 1. Process Server Profiles
-process_profiles "Server Profile" "server profile" "Organization.Moid"
-
-echo ""
+if $CLEAN_SERVER; then
+  process_profiles "Server Profile" "server profile"
+  echo ""
+fi
 
 # 2. Process Chassis Profiles
-process_profiles "Chassis Profile" "chassis profile" "Organization.Moid"
-
-echo ""
+if $CLEAN_CHASSIS; then
+  process_profiles "Chassis Profile" "chassis profile"
+  echo ""
+fi
 
 # 3. Process Domain Profiles
-process_domain_profiles
+if $CLEAN_DOMAIN; then
+  process_domain_profiles
+  echo ""
+fi
 
-echo ""
-echo "All operations completed."
+# 4. Clear User Labels
+if $CLEAR_USER_LABELS; then
+  clear_user_labels
+  echo ""
+fi
+
+echo "All requested operations completed."
+
+#Way to remove all user profiles
+# 

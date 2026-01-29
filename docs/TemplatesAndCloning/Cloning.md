@@ -22,6 +22,11 @@ Set Tags to SRV:SRVxx, **where x is your pod number**.
 
 Click **Clone**
 
+This triggers a Request; you can monitor the process of the clone by clicking on the request icon and observing your request. 
+
+
+![Cloning 5](./Cloning5.png "Cloning 5")
+
 The process of creating the clone is about 10 seconds.
 Now you see the new UCS Server Profile Template that you can work with.
 
