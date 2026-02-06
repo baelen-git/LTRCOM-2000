@@ -12,17 +12,17 @@ ConfigurationType:
   ConfigureOutOfBand: false
 InbandVlan: 5
 InbandIpPool: MoRef[UCSX-LAB-RESOURCES\UCSXKVMPool]
-# ---
-# ClassId: storage.StoragePolicy
-# Name: IMM-M.2
-# Organization: UCSX-LAB-RESOURCES
-# #settings
-# M2VirtualDrive:
-#   ClassId: storage.M2VirtualDriveConfig
-#   ObjectType: storage.M2VirtualDriveConfig
-#   Enable: true
-#   ControllerSlot: MSTOR-RAID-1
-# UnusedDisksState: Jbod
+---
+ClassId: storage.StoragePolicy
+Name: M.2
+Organization: UCSX-LAB-RESOURCES
+#settings
+M2VirtualDrive:
+  ClassId: storage.M2VirtualDriveConfig
+  ObjectType: storage.M2VirtualDriveConfig
+  Enable: true
+  ControllerSlot: MSTOR-RAID-1
+UnusedDisksState: Jbod
 ---
 ClassId: boot.PrecisionPolicy
 Name: BootOrder

@@ -12,7 +12,7 @@ PolicyBucket:
   # - MoRef:ipmioverlan.Policy[UCSX-LAB-RESOURCES\IMM-IPMI-off]
   - MoRef:kvm.Policy[UCSX-LAB-RESOURCES\VirtualKVM]
   - MoRef:sol.Policy[UCSX-LAB-RESOURCES\SOL]
-  # - MoRef:storage.StoragePolicy[UCSX-LAB-RESOURCES\IMM-M.2]
+  - MoRef:storage.StoragePolicy[UCSX-LAB-RESOURCES\M.2]
   - MoRef:vnic.LanConnectivityPolicy[UCSX-LAB-RESOURCES\LAN]
   - MoRef:access.Policy[UCSX-LAB-RESOURCES\IMCAccess]
   - MoRef:power.Policy[UCSX-LAB-RESOURCES\ChassisPower]
