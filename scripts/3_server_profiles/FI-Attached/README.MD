@@ -11,9 +11,9 @@ isctl apply -f .
 
 3. Deploy the Server Profiles
 ```
-for SP_ID in {01..16}; do 
-    echo "Deploying IMM-RHEL-$SP_ID... "
-    isctl update server profile name IMM-RHEL-${SP_ID} --ScheduledActions '[{"Action":"Deploy", "ProceedOnReboot":false},{"Action":"Activate","ProceedOnReboot":true}]' > /dev/null
+for SP_ID in {01..32}; do 
+    echo "Deploying RHEL-$SP_ID... "
+    isctl update server profile name RHEL-${SP_ID} --ScheduledActions '[{"Action":"Deploy", "ProceedOnReboot":false},{"Action":"Activate","ProceedOnReboot":true}]' > /dev/null
 done
 ```
 
