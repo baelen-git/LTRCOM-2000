@@ -3,6 +3,6 @@
 
 ## Lab proctored by:
 
-* Boris Aelen - Technical Marketing Engineer
-* Jason McGee - Director, Technical Marketing
-* Tushar Patel - Distinguished Technical Marketing Engineer
+* Matt Faiello - Technical Marketing Engineer
+* Brad TerEick - Cloud and AI Infra Technology Leaders
+* David Soper - Technical Marketing Engineer
