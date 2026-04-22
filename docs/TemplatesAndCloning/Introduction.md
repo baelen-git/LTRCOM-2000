@@ -15,4 +15,4 @@ First you are going to **clone** a **server profile template** and then **make c
 Once it is a server profile template that you can use, you are going to derive server profiles from this template. 
 
 NOTE:
-**Do NOT delete or any server policy or vNIC policy without your -SRVxx at the end, where x is your pod number.**
+**Do NOT delete or change any server policy or vNIC policy without your -SRVxx at the end, where xx is your pod number.**
