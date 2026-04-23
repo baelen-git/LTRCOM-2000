@@ -54,7 +54,7 @@ Go to the Templates tab on the left.
 
 **Select** the **UCS Server Profile Templates Tab**.
 
-The Server Profile Template was cloned and thing should first be corrected, before we can derive the Server Template Profile.
+The Server Profile Template was cloned and should first be corrected, before we can derive the Server Profile.
 
 Click on **Edit** next to **your** cloned **Server Profile Template**.
 
